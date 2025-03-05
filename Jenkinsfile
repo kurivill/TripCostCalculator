@@ -1,5 +1,14 @@
 pipeline {
     agent any
+
+    environment {
+    IMAGE_NAME = 'villeaku/tripcostcalculator'
+    IMAGE_TAG = 'latest'
+    }
+
+
+
+
     stages {
 
         stage('Build') {
@@ -7,6 +16,26 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
+
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
+            }
+        }
+
+        stage('Login to Docker') {
+        steps {
+            withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                bat "docker login -u $USERNAME -p $PASSWORD"
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                bat "docker push $IMAGE_NAME:$IMAGE_TAG"
+            }
+        }
+
 
         stage('Test') {
             steps {
