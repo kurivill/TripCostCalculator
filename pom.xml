@@ -24,7 +24,6 @@
     </dependencies>
 
     <build>
-        <finalName>aikidotracker</finalName>
         <plugins>
             <!-- Maven Compiler Plugin -->
             <plugin>
