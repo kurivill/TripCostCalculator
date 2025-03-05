@@ -27,6 +27,7 @@ pipeline {
         steps {
             withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 bat "docker login -u $USERNAME -p $PASSWORD"
+                }g
             }
         }
 
