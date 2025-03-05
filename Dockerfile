@@ -4,5 +4,5 @@ WORKDIR /app
 COPY pom.xml /app
 COPY . /app
 COPY target/*.jar app.jar
-CMD ["java", "-jar", "app.jar"]
 ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD []
